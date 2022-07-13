@@ -132,6 +132,28 @@ const myFindIndex = (arr, callback) =>
             return i;
     }
     return -1;
+};
+
+const myFindLast = (arr, callback) =>
+{
+    const { length } = arr;
+    for (let i = length - 1; i >= 0; --i)
+    {
+        if (callback(arr[i], i, arr))
+            return arr[i];
+    }
+    return undefined;
+}
+
+const myFindLastIndex = (arr, callback) =>
+{
+    const { length } = arr;
+    for (let i = length - 1; i >= 0; --i)
+    {
+        if (callback(arr[i], i, arr))
+            return i;
+    }
+    return -1;
 }
 
 module.exports =
@@ -146,5 +168,7 @@ module.exports =
     myEntries,
     myEvery,
     myFind,
-    myFindIndex
+    myFindIndex,
+    myFindLast,
+    myFindLastIndex
 }

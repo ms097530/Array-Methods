@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -97,4 +97,30 @@ test('returns index of first element to return true from callback, or -1 if no m
     expect(result2).toBe(-1);
     let result3 = findIndex(arr, val => typeof (val) === 'string');
     expect(result3).toBe(5);
-})
+});
+
+test('returns last element that returns true from callback, or undefined if no match is found', () =>
+{
+    let arr = ['hello', 1, 2, 3, 4, 69, 420, 'world'];
+    let result1 = findLast(arr, val => typeof (val) === 'string');
+    expect(result1).toBe('world');
+    let result2 = findLast(arr, val => val > 0);
+    expect(result2).toBe(420);
+    let result3 = findLast(arr, val => val === 'hello');
+    expect(result3).toBe('hello');
+    let result4 = findLast(arr, val => val > 420);
+    expect(result4).toBeUndefined();
+});
+
+test('returns index of last element to return true from callback, or -1 if no match is found', () =>
+{
+    let arr = ['hello', 1, 2, 3, 4, 69, 420, 'world'];
+    let result1 = findLastIndex(arr, val => typeof (val) === 'string');
+    expect(result1).toBe(7);
+    let result2 = findLastIndex(arr, val => val > 0);
+    expect(result2).toBe(6);
+    let result3 = findLastIndex(arr, val => val === 'hello');
+    expect(result3).toBe(0);
+    let result4 = findLastIndex(arr, val => val > 420);
+    expect(result4).toBe(-1);
+});
