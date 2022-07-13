@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -48,3 +48,16 @@ test('creates a copy of passed array and pushes passed values into it', () =>
     expect(result).toStrictEqual([1, 2, 3, 4, 5, 6]);
     expect(arr).toStrictEqual([1, 2, 3]);
 });
+
+test('create a shallow copy of arr with values from start to end copied in sequence starting at index target', () =>
+{
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8];
+    let result1 = copyWithin(arr, 1);
+    expect(result1).toStrictEqual([1, 1, 2, 3, 4, 5, 6, 7]);
+    let result2 = copyWithin(arr, 6, 3, 6);
+    expect(result2).toStrictEqual([1, 2, 3, 4, 5, 6, 4, 5]);
+    let result3 = copyWithin(arr, -1);
+    expect(result3).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 1]);
+    let result4 = copyWithin(arr, -4, -8, -4);
+    expect(result4).toStrictEqual([1, 2, 3, 4, 1, 2, 3, 4]);
+})

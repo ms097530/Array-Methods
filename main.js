@@ -66,15 +66,24 @@ const myCopyWithin = (arr, target, start = 0, end = arr.length) =>
         }
     }
 
-    let adjustedTarget = target >= 0 ? target : arr.length - 1 + target;
-    let adjustedStart = start >= 0 ? start : arr.length - 1 + start;
-    let adjustedEnd = end >= 0 ? end : arr.length - 1 + end;
+    let adjustedTarget = target >= 0 ? target : arr.length + target;
+    let adjustedStart = start >= 0 ? start : arr.length + start;
+    let adjustedEnd = end >= 0 ? end : arr.length + end;
 
-    for (let i = 0; i < start; ++i)
+    for (let i = 0; i < adjustedTarget; ++i)
+    {
+        newArr[i] = arr[i];
+    }
+    for (; adjustedTarget < length && adjustedStart < adjustedEnd; ++adjustedTarget, ++adjustedStart)
+    {
+        newArr[adjustedTarget] = arr[adjustedStart];
+    }
+    for (let i = adjustedTarget; i < length; ++i)
     {
         newArr[i] = arr[i];
     }
 
+    return newArr;
 }
 
 module.exports =
