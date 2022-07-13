@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -87,3 +87,14 @@ test('returns first element to return true from callback, or undefined if no mat
     let result3 = find(arr, val => typeof (val) === 'string');
     expect(result3).toBe('hello world');
 });
+
+test('returns index of first element to return true from callback, or -1 if no match is found', () =>
+{
+    let arr = [13, 69, 420, 1337, 9029, 'hello world'];
+    let result1 = findIndex(arr, val => val === 9029);
+    expect(result1).toBe(4);
+    let result2 = findIndex(arr, val => val < 12);
+    expect(result2).toBe(-1);
+    let result3 = findIndex(arr, val => typeof (val) === 'string');
+    expect(result3).toBe(5);
+})

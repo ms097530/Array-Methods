@@ -123,6 +123,17 @@ const myFind = (arr, callback) =>
     return undefined;
 }
 
+const myFindIndex = (arr, callback) =>
+{
+    const { length } = arr;
+    for (let i = 0; i < length; ++i)
+    {
+        if (callback(arr[i], i, arr))
+            return i;
+    }
+    return -1;
+}
+
 module.exports =
 {
     myPush,
@@ -134,5 +145,6 @@ module.exports =
     myCopyWithin,
     myEntries,
     myEvery,
-    myFind
+    myFind,
+    myFindIndex
 }
