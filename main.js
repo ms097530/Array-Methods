@@ -112,6 +112,17 @@ const myEvery = (arr, callback) =>
     return true;
 }
 
+const myFind = (arr, callback) =>
+{
+    const { length } = arr;
+    for (let i = 0; i < length; ++i)
+    {
+        if (callback(arr[i], i, arr))
+            return arr[i];
+    }
+    return undefined;
+}
+
 module.exports =
 {
     myPush,
@@ -122,5 +133,6 @@ module.exports =
     myConcat,
     myCopyWithin,
     myEntries,
-    myEvery
+    myEvery,
+    myFind
 }

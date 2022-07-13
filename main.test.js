@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -75,4 +75,15 @@ test('tests whether all elements return true from callback', () =>
     let arr = [1, 2, 3, 4, 5, 6];
     expect(every(arr, (val) => val > 0)).toBe(true);
     expect(every(arr, (val) => val <= 5)).toBe(false);
-})
+});
+
+test('returns first element to return true from callback, or undefined if no match is found', () =>
+{
+    let arr = [13, 69, 420, 1337, 9029, 'hello world'];
+    let result1 = find(arr, val => val === 9029);
+    expect(result1).toBe(9029);
+    let result2 = find(arr, val => val < 12);
+    expect(result2).toBeUndefined();
+    let result3 = find(arr, val => typeof (val) === 'string');
+    expect(result3).toBe('hello world');
+});
