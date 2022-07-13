@@ -52,6 +52,31 @@ const myConcat = (arr, ...vals) =>
     return newArr;
 }
 
+const myCopyWithin = (arr, target, start = 0, end = arr.length) =>
+{
+    let { length } = arr;
+    let newArr = [];
+
+    if (target >= Math.abs(length) || start >= Math.abs(length)) 
+    {
+        for (let i = 0; i < length; ++i)
+        {
+            newArr[i] = arr[i];
+            return newArr;
+        }
+    }
+
+    let adjustedTarget = target >= 0 ? target : arr.length - 1 + target;
+    let adjustedStart = start >= 0 ? start : arr.length - 1 + start;
+    let adjustedEnd = end >= 0 ? end : arr.length - 1 + end;
+
+    for (let i = 0; i < start; ++i)
+    {
+        newArr[i] = arr[i];
+    }
+
+}
+
 module.exports =
 {
     myPush,
@@ -59,5 +84,6 @@ module.exports =
     myMap,
     myFilter,
     myFill,
-    myConcat
+    myConcat,
+    myCopyWithin
 }
