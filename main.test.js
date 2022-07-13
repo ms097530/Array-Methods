@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -69,3 +69,10 @@ test('returns Array iterator object that contains key/value pairs for each index
     expect(iterator.next().value).toStrictEqual([0, 1]);
     expect(iterator.next().value).toStrictEqual([1, 2]);
 });
+
+test('tests whether all elements return true from callback', () =>
+{
+    let arr = [1, 2, 3, 4, 5, 6];
+    expect(every(arr, (val) => val > 0)).toBe(true);
+    expect(every(arr, (val) => val <= 5)).toBe(false);
+})

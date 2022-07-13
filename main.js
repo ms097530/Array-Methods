@@ -88,6 +88,7 @@ const myCopyWithin = (arr, target, start = 0, end = arr.length) =>
 
 const myEntries = (arr) =>
 {
+    // was not aware of generator functions until trying to implement this method - inspiration taken from https://blog.logrocket.com/javascript-array-methods/
     const { length } = arr;
     function* generator()
     {
@@ -100,6 +101,17 @@ const myEntries = (arr) =>
     return generator();
 }
 
+const myEvery = (arr, callback) =>
+{
+    const { length } = arr;
+    for (let i = 0; i < length; ++i)
+    {
+        if (!callback(arr[i], i, arr))
+            return false;
+    }
+    return true;
+}
+
 module.exports =
 {
     myPush,
@@ -109,5 +121,6 @@ module.exports =
     myFill,
     myConcat,
     myCopyWithin,
-    myEntries
+    myEntries,
+    myEvery
 }
