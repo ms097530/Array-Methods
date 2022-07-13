@@ -86,6 +86,20 @@ const myCopyWithin = (arr, target, start = 0, end = arr.length) =>
     return newArr;
 }
 
+const myEntries = (arr) =>
+{
+    const { length } = arr;
+    function* generator()
+    {
+        for (let i = 0; i < length; ++i)
+        {
+            yield [i, arr[i]];
+        }
+    }
+
+    return generator();
+}
+
 module.exports =
 {
     myPush,
@@ -94,5 +108,6 @@ module.exports =
     myFilter,
     myFill,
     myConcat,
-    myCopyWithin
+    myCopyWithin,
+    myEntries
 }
