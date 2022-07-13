@@ -35,10 +35,29 @@ const myFilter = (arr, callback) =>
     return newArr;
 }
 
+const myFill = (arr, val, start = 0, end = arr.length) =>
+{
+    for (let i = start; i < end; ++i)
+        arr[i] = val;
+}
+
+const myConcat = (arr, ...vals) =>
+{
+    let newArr = []
+    // deep copy arr to newArr
+    for (let i = 0; i < arr.length; ++i)
+        myPush(newArr, arr[i]);
+    for (let val of vals)
+        myPush(newArr, val);
+    return newArr;
+}
+
 module.exports =
 {
     myPush,
     myPop,
     myMap,
-    myFilter
+    myFilter,
+    myFill,
+    myConcat
 }
