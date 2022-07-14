@@ -184,8 +184,12 @@ const myFlat = (arr, depth = 1) =>
     {
         flatArr = myFlatHelper(arr[i], depth, flatArr);
     }
-    // return myFlatHelper(arr, depth, []);
     return flatArr;
+}
+
+const myFlatMap = (arr, callback) =>
+{
+    return arr.reduce((acc, curr, i, arr) => myConcat(acc, callback(curr, i, arr)), []);
 }
 
 module.exports =
@@ -203,5 +207,6 @@ module.exports =
     myFindIndex,
     myFindLast,
     myFindLastIndex,
-    myFlat
+    myFlat,
+    myFlatMap
 }

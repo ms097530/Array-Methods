@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -143,4 +143,15 @@ test('returns new array where nested array element depth is reduced by depth', (
     expect(flat(arr5, 2)).toStrictEqual([1, 2, 3]);
     let arr6 = [1, [[[[2, 3]]]], 4, [[5, 6]]];
     expect(flat(arr6, 3)).toStrictEqual([1, [2, 3], 4, 5, 6])
+});
+
+test('returns array where original array is flattened one level and the callback is applied to each element of the flattened array', () =>
+{
+    let arr1 = [1, 2, 3];
+    expect(flatMap(arr1, (val) => val + 1)).toStrictEqual([2, 3, 4]);
+    let arr2 = [1, 2, 3, 4];
+    expect(flatMap(arr2, (x) => [x * 2])).toStrictEqual([2, 4, 6, 8]);
+    expect(flatMap(arr2, (x) => [[x * 2]])).toStrictEqual([[2], [4], [6], [8]]);
+    let arr3 = ["it's Sunny in", "", "California"];
+    expect(flatMap(arr3, (str) => str.split(" "))).toStrictEqual(["it's", "Sunny", "in", "", "California"]);
 })
