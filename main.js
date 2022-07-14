@@ -48,7 +48,19 @@ const myConcat = (arr, ...vals) =>
     for (let i = 0; i < arr.length; ++i)
         myPush(newArr, arr[i]);
     for (let val of vals)
-        myPush(newArr, val);
+    {
+        if (Array.isArray(val))
+        {
+            for (let j = 0; j < val.length; ++j)
+                myPush(newArr, val[j]);
+        }
+        else
+        {
+            myPush(newArr, val);
+        }
+
+    }
+
     return newArr;
 }
 
@@ -154,6 +166,11 @@ const myFindLastIndex = (arr, callback) =>
             return i;
     }
     return -1;
+}
+
+const myFlat = (arr, depth = 1) =>
+{
+
 }
 
 module.exports =

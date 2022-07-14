@@ -44,9 +44,11 @@ test('fills passed array with given value from start to end', () =>
 test('creates a copy of passed array and pushes passed values into it', () =>
 {
     let arr = [1, 2, 3]
-    let result = concat(arr, 4, 5, 6);
-    expect(result).toStrictEqual([1, 2, 3, 4, 5, 6]);
+    let result1 = concat(arr, 4, 5, 6);
+    expect(result1).toStrictEqual([1, 2, 3, 4, 5, 6]);
     expect(arr).toStrictEqual([1, 2, 3]);
+    let result2 = concat(arr, [4, 5]);
+    expect(result2).toStrictEqual([1, 2, 3, 4, 5]);
 });
 
 test('create a shallow copy of arr with values from start to end copied in sequence starting at index target', () =>
