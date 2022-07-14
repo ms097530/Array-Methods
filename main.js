@@ -192,6 +192,14 @@ const myFlatMap = (arr, callback) =>
     return arr.reduce((acc, curr, i, arr) => myConcat(acc, callback(curr, i, arr)), []);
 }
 
+const myForEach = (arr, callback) =>
+{
+    for (let i = 0; i < arr.length; ++i)
+    {
+        callback(arr[i], i, arr);
+    }
+}
+
 module.exports =
 {
     myPush,
@@ -208,5 +216,6 @@ module.exports =
     myFindLast,
     myFindLastIndex,
     myFlat,
-    myFlatMap
+    myFlatMap,
+    myForEach
 }

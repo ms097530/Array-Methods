@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -154,4 +154,11 @@ test('returns array where original array is flattened one level and the callback
     expect(flatMap(arr2, (x) => [[x * 2]])).toStrictEqual([[2], [4], [6], [8]]);
     let arr3 = ["it's Sunny in", "", "California"];
     expect(flatMap(arr3, (str) => str.split(" "))).toStrictEqual(["it's", "Sunny", "in", "", "California"]);
+});
+
+test('exectues callback on each member of the passed in array', () =>
+{
+    let arr = [1, 2, 3];
+    expect(forEach(arr, (val) => val + 1)).toBeUndefined(); // return value should be undefined
+    expect(arr).toStrictEqual([1, 2, 3]);   // makes sure original array is unmodified by callback
 })
