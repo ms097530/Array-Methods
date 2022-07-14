@@ -200,6 +200,24 @@ const myForEach = (arr, callback) =>
     }
 }
 
+const myIncludes = (arr, val, start = 0) =>
+{
+    const { length } = arr;
+
+    if (start >= length) return false;
+
+    let absStart = Math.abs(start);
+    let adjustedStart = absStart >= length > 0 ? 0 : absStart;
+    // const computedIndex = length + start;
+    // const adjustedStart = computedIndex < 0 && Math.abs(computedIndex) >= length ? 0 : Math.abs(computedIndex);
+    for (let i = adjustedStart; i < length; ++i)
+    {
+        if (arr[i] === val)
+            return true;
+    }
+    return false;
+}
+
 module.exports =
 {
     myPush,
@@ -217,5 +235,6 @@ module.exports =
     myFindLastIndex,
     myFlat,
     myFlatMap,
-    myForEach
+    myForEach,
+    myIncludes
 }

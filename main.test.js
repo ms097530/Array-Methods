@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -161,4 +161,16 @@ test('exectues callback on each member of the passed in array', () =>
     let arr = [1, 2, 3];
     expect(forEach(arr, (val) => val + 1)).toBeUndefined(); // return value should be undefined
     expect(arr).toStrictEqual([1, 2, 3]);   // makes sure original array is unmodified by callback
+});
+
+test('checks if an array, starting from index start, contains a value -- negative start beyond absolute value of array length defaults start to 0, otherwise absolute value of negative start will be used as start', () =>
+{
+    let arr = ['a', 'b', 'c'];
+    expect(includes(arr, 'a')).toBe(true);
+    expect(includes(arr, 'a', -100)).toBe(true);
+    expect(includes(arr, 'a', -2)).toBe(false);
+    expect(includes(arr, 'a', 1)).toBe(false);
+    expect(includes(arr, 'b', 1)).toBe(true);
+    expect(includes(arr, 'c', 2)).toBe(true);
+    expect(includes(arr, 'a', 3)).toBe(false);
 })
