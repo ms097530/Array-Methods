@@ -274,6 +274,26 @@ const myLastIndexOf = (arr, val, fromIndex = arr.length - 1) =>
     return -1;
 }
 
+// this needs to be a normal function to access arguments.length
+function myReduce(arr, callback, initialValue = arr[0])
+{
+    const { length } = arr;
+    if (length === 0 && arguments.length === 2) throw new TypeError('Invalid input');
+
+    let accumulator = initialValue;
+    if (arguments.length >= 3 && length > 0)
+    {
+        accumulator = callback(initialValue, arr[0], 0, arr);
+    }
+
+    for (let i = 1; i < length; ++i)
+    {
+        accumulator = callback(accumulator, arr[i], i, arr);
+    }
+
+    return accumulator;
+}
+
 module.exports =
 {
     myPush,
@@ -296,5 +316,6 @@ module.exports =
     myIndexOf,
     myJoin,
     myKeys,
-    myLastIndexOf
+    myLastIndexOf,
+    myReduce
 }
