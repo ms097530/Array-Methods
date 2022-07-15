@@ -189,7 +189,7 @@ const myFlat = (arr, depth = 1) =>
 
 const myFlatMap = (arr, callback) =>
 {
-    return arr.reduce((acc, curr, i, arr) => myConcat(acc, callback(curr, i, arr)), []);
+    return myReduce(arr, (acc, curr, i, arr) => myConcat(acc, callback(curr, i, arr)), []);
 }
 
 const myForEach = (arr, callback) =>
