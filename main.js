@@ -247,6 +247,16 @@ const myJoin = (arr, separator = ',') =>
     return str;
 }
 
+const myKeys = (arr) =>
+{
+    function* generator()
+    {
+        for (let i = 0; i < arr.length; ++i)
+            yield i;
+    }
+    return generator();
+}
+
 module.exports =
 {
     myPush,
@@ -267,5 +277,6 @@ module.exports =
     myForEach,
     myIncludes,
     myIndexOf,
-    myJoin
+    myJoin,
+    myKeys
 }

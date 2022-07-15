@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -192,4 +192,15 @@ test('returns strings in an array joined together by separator', () =>
     expect(join([], ' + ')).toBe('');
     let arr2 = [1, 2, 3, 4];
     expect(join(arr2, '/')).toBe('1/2/3/4');
+});
+
+test('returns Array Iterator that contains keys for each index of array', () =>
+{
+    let arr = [1, 2, 3];
+    expect([...keys(arr)]).toStrictEqual([0, 1, 2]);
+    let iterator = keys(arr);
+    expect(iterator.next().value).toBe(0);
+    expect(iterator.next().value).toBe(1);
+    expect(iterator.next().value).toBe(2);
+    expect(iterator.next().value).toBeUndefined();
 })
