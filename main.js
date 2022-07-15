@@ -176,7 +176,7 @@ const myFlat = (arr, depth = 1) =>
             return myConcat(arr, val);
         else
         {
-            return myFlatHelper(val.reduce((acc, curr) => myConcat(acc, curr), []), depth - 1, arr);
+            return myFlatHelper(myReduce(val, (acc, curr) => myConcat(acc, curr), []), depth - 1, arr);
         }
     }
     let flatArr = [];
