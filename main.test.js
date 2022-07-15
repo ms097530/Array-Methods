@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -173,4 +173,13 @@ test('checks if an array, starting from index start, contains a value -- negativ
     expect(includes(arr, 'b', 1)).toBe(true);
     expect(includes(arr, 'c', 2)).toBe(true);
     expect(includes(arr, 'a', 3)).toBe(false);
+});
+
+test('returns index of first matching element or -1 if not found', () =>
+{
+    let arr = [1, 2, 3, 4, 5, 4, 3, 2, 1];
+    expect(indexOf(arr, 4)).toBe(3);
+    expect(indexOf(arr, 4, -5)).toBe(5);
+    expect(indexOf(arr, 1, -11)).toBe(-1);
+    expect(indexOf(arr, 69)).toBe(-1);
 })

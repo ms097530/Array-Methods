@@ -218,6 +218,22 @@ const myIncludes = (arr, val, start = 0) =>
     return false;
 }
 
+const myIndexOf = (arr, val, start = 0) =>
+{
+    const { length } = arr;
+    // MDN only specified start values greater than or equal to length return -1 but a negative offset of with absolute value greater than or equal to length would still leave you with a negative offset - seemed logical to also return -1
+    // could potentially modulo with length and then put it into adjustedStart as normal
+    if (Math.abs(start) >= length) return -1;
+
+    let adjustedStart = start >= 0 ? 0 : length + start;
+    for (let i = adjustedStart; i < length; ++i)
+    {
+        if (arr[i] === val)
+            return i;
+    }
+    return -1;
+}
+
 module.exports =
 {
     myPush,
@@ -236,5 +252,6 @@ module.exports =
     myFlat,
     myFlatMap,
     myForEach,
-    myIncludes
+    myIncludes,
+    myIndexOf
 }
