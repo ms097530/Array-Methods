@@ -234,6 +234,19 @@ const myIndexOf = (arr, val, start = 0) =>
     return -1;
 }
 
+const myJoin = (arr, separator = ',') =>
+{
+    const { length } = arr;
+    let str = '';
+    for (let i = 0; i < length; ++i)
+    {
+        if (!(arr[i] === undefined || arr[i] === null || arr[i] === []))
+            str += arr[i].toString() + separator;
+    }
+    str = str.slice(0, str.length - separator.length);
+    return str;
+}
+
 module.exports =
 {
     myPush,
@@ -253,5 +266,6 @@ module.exports =
     myFlatMap,
     myForEach,
     myIncludes,
-    myIndexOf
+    myIndexOf,
+    myJoin
 }
