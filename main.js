@@ -257,6 +257,23 @@ const myKeys = (arr) =>
     return generator();
 }
 
+const myLastIndexOf = (arr, val, fromIndex = arr.length - 1) =>
+{
+    // fromIndex provided is a negative of magnitude greater than or equal to arr.length
+    if (fromIndex <= -(arr.length)) return -1;
+    // fromIndex greater than or equal to length defaults to searching backward from the end of arr
+    if (fromIndex >= arr.length) fromIndex = arr.length - 1;
+    if (fromIndex < 0) fromIndex = arr.length + fromIndex;
+
+    // search backward, starting from fromIndex
+    for (let i = fromIndex; i >= 0; --i)
+    {
+        if (arr[i] === val)
+            return i;
+    }
+    return -1;
+}
+
 module.exports =
 {
     myPush,
@@ -278,5 +295,6 @@ module.exports =
     myIncludes,
     myIndexOf,
     myJoin,
-    myKeys
+    myKeys,
+    myLastIndexOf
 }

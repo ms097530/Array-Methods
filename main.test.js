@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -203,4 +203,13 @@ test('returns Array Iterator that contains keys for each index of array', () =>
     expect(iterator.next().value).toBe(1);
     expect(iterator.next().value).toBe(2);
     expect(iterator.next().value).toBeUndefined();
-})
+});
+
+test('searches arr backwards, starting from fromIndex and returns index if matching value is found and -1 if no matching is found or fromIndex is invalid', () =>
+{
+    let arr = [69, 420, 420, 69, 1337, 1, 2, 3, 4, 5, 69];
+    expect(lastIndexOf(arr, 1)).toBe(5);
+    expect(lastIndexOf(arr, 1, -7)).toBe(-1);
+    expect(lastIndexOf(arr, 420, -10)).toBe(1);
+    expect(lastIndexOf(arr, 420)).toBe(2);
+});
