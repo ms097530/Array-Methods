@@ -328,6 +328,21 @@ const myReverse = (arr) =>
     return arr;
 }
 
+const myShift = (arr) =>
+{
+    const { length } = arr;
+    if (length === 0) return undefined;
+
+    let retVal = arr[0];
+    for (let i = 0; i < length - 1; ++i)
+    {
+        arr[i] = arr[i + 1];
+    }
+    arr.length -= 1;
+
+    return retVal;
+}
+
 module.exports =
 {
     myPush,
@@ -353,5 +368,6 @@ module.exports =
     myLastIndexOf,
     myReduce,
     myReduceRight,
-    myReverse
+    myReverse,
+    myShift
 }

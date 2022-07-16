@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -258,4 +258,17 @@ test('reverses order of elements in array', () =>
     let arr4 = [1, 2];
     expect(reverse(arr4)).toStrictEqual([2, 1]);
     expect(arr4).toStrictEqual([2, 1]);
+});
+
+test('removes value at 0th index from array and shifts consecutive values towards the beginning - returns previous 0th value', () =>
+{
+    let empty = [];
+    expect(shift(empty)).toBeUndefined();
+    expect(empty).toStrictEqual([]);
+    let arr1 = [1, 2, 3, 4, 5];
+    expect(shift(arr1)).toBe(1);
+    expect(arr1).toStrictEqual([2, 3, 4, 5]);
+    let arr2 = [1];
+    expect(shift(arr2)).toBe(1);
+    expect(arr2).toStrictEqual([]);
 })
