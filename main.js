@@ -294,6 +294,25 @@ function myReduce(arr, callback, initialValue = arr[0])
     return accumulator;
 }
 
+function myReduceRight(arr, callback, initialValue = arr[arr.length - 1])
+{
+    const { length } = arr;
+    if (length === 0 && arguments.length === 2) throw new TypeError('Invalid input');
+
+    let accumulator = initialValue;
+    if (arguments.length >= 3 && length > 0)
+    {
+        accumulator = callback(initialValue, arr[length - 1], 0, arr);
+    }
+
+    for (let i = length - 2; i >= 0; --i)
+    {
+        accumulator = callback(accumulator, arr[i], i, arr);
+    }
+
+    return accumulator;
+}
+
 module.exports =
 {
     myPush,
@@ -317,5 +336,6 @@ module.exports =
     myJoin,
     myKeys,
     myLastIndexOf,
-    myReduce
+    myReduce,
+    myReduceRight
 }

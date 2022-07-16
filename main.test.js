@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -226,4 +226,17 @@ test('executes reducer callback on each element in array, in order, passing retu
     expect(reduce(arr1, (prev, curr) => prev.toString() + curr.toString())).toBe('12345');
     let arr2 = [1, 2, 3, [4, [5]]];
     expect(reduce(arr2, (prev, curr) => prev + curr)).toBe('64,5');
-})
+});
+
+test('executes reducer callback on each element in array, in reverse order, passing return value from calculation on the preceding element and returns the final result of running the reducer across all elements of the array', () =>
+{
+    let empty = [];
+    // when checking if function throws an error the tested function must be called within a wrapping function like below
+    expect(() => reduceRight(empty, (prev, curr) => console.log('empty'))).toThrow(TypeError);
+    expect(reduceRight(empty, (prev, curr) => console.log('empty'), 69)).toBe(69);
+    let arr1 = [1, 2, 3, 4, 5];
+    expect(reduceRight(arr1, (prev, curr) => prev + curr)).toBe(15);
+    expect(reduceRight(arr1, (prev, curr) => prev + curr, 3)).toBe(18);
+    let arr2 = [1, 2, 3, [4, [5]]];
+    expect(reduceRight(arr2, (prev, curr) => prev + curr)).toBe('4,5321');
+});
