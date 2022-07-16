@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift, mySlice: slice } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -271,4 +271,20 @@ test('removes value at 0th index from array and shifts consecutive values toward
     let arr2 = [1];
     expect(shift(arr2)).toBe(1);
     expect(arr2).toStrictEqual([]);
-})
+});
+
+test('returns shallow copy of provided array from start to end (not including end)', () =>
+{
+    let arr1 = [1, 2, 3, 4, 5];
+    expect(slice(arr1)).toStrictEqual([1, 2, 3, 4, 5]);
+    expect(slice(arr1, 1)).toStrictEqual([2, 3, 4, 5]);
+    expect(slice(arr1, 1, 3)).toStrictEqual([2, 3]);
+    expect(slice(arr1, 5, 7)).toStrictEqual([]);
+    expect(slice(arr1, 4, 5)).toStrictEqual([5]);
+    expect(slice(arr1, -1, 8)).toStrictEqual([5]);
+    expect(slice(arr1, -3, -1)).toStrictEqual([3, 4]);
+    expect(slice(arr1, -6, 9)).toStrictEqual([1, 2, 3, 4, 5]);
+    expect(slice(arr1, -6, -9)).toStrictEqual([]);
+    expect(slice(arr1, 2, -2)).toStrictEqual([3]);
+    expect(arr1).toStrictEqual([1, 2, 3, 4, 5]);
+});

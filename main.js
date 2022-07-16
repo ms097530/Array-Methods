@@ -343,6 +343,26 @@ const myShift = (arr) =>
     return retVal;
 }
 
+const mySlice = (arr, start = 0, end = arr.length) =>
+{
+    const { length } = arr;
+    let newArr = [];
+
+
+    let adjustedStart = start >= 0 ? start : length + start;
+    let adjustedEnd = end >= 0 ? end : length + end;
+
+    if (adjustedStart < 0) adjustedStart = 0;
+    if (adjustedEnd > length) adjustedEnd = length;
+    if (adjustedStart >= length) return [];
+
+    for (let i = adjustedStart; i < adjustedEnd; ++i)
+    {
+        myPush(newArr, arr[i]);
+    }
+    return newArr;
+}
+
 module.exports =
 {
     myPush,
@@ -369,5 +389,6 @@ module.exports =
     myReduce,
     myReduceRight,
     myReverse,
-    myShift
+    myShift,
+    mySlice
 }
