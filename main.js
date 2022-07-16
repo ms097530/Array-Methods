@@ -29,7 +29,7 @@ const myFilter = (arr, callback) =>
     let newArr = []
     for (let i = 0; i < length; ++i)
     {
-        if (callback(arr[i], i, arr))
+        if (callback(arr[i], i, arr) === true)
             myPush(newArr, arr[i]);
     }
     return newArr;
@@ -361,6 +361,18 @@ const mySlice = (arr, start = 0, end = arr.length) =>
         myPush(newArr, arr[i]);
     }
     return newArr;
+}
+
+const mySome = (arr, callback) =>
+{
+    const { length } = arr;
+
+    for (let i = 0; i < length; ++i)
+    {
+        if (callback(arr[i], i, arr) === true)
+            return true;
+    }
+    return false;
 }
 
 module.exports =
