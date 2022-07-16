@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -240,3 +240,22 @@ test('executes reducer callback on each element in array, in reverse order, pass
     let arr2 = [1, 2, 3, [4, [5]]];
     expect(reduceRight(arr2, (prev, curr) => prev + curr)).toBe('4,5321');
 });
+
+test('reverses order of elements in array', () =>
+{
+    let empty = [];
+    expect(reverse(empty)).toStrictEqual([]);
+    expect(empty).toStrictEqual([]);
+    let arr1 = [1, 2, 3, 4, 5];
+    expect(reverse(arr1)).toStrictEqual([5, 4, 3, 2, 1]);
+    expect(arr1).toStrictEqual([5, 4, 3, 2, 1]);
+    let arr2 = [1, 2, 3, 4, 5, 6];
+    expect(reverse(arr2)).toStrictEqual([6, 5, 4, 3, 2, 1]);
+    expect(arr2).toStrictEqual([6, 5, 4, 3, 2, 1]);
+    let arr3 = [1];
+    expect(reverse(arr3)).toStrictEqual([1]);
+    expect(arr3).toStrictEqual([1]);
+    let arr4 = [1, 2];
+    expect(reverse(arr4)).toStrictEqual([2, 1]);
+    expect(arr4).toStrictEqual([2, 1]);
+})

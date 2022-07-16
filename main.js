@@ -313,6 +313,21 @@ function myReduceRight(arr, callback, initialValue = arr[arr.length - 1])
     return accumulator;
 }
 
+const myReverse = (arr) =>
+{
+    let beginIndex = 0;
+    let endIndex = arr.length - 1;
+    let loopEnd = Math.floor((arr.length - 1) / 2);
+
+    for (let i = beginIndex, j = endIndex; i < j; ++i, --j)
+    {
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;
+}
+
 module.exports =
 {
     myPush,
@@ -337,5 +352,6 @@ module.exports =
     myKeys,
     myLastIndexOf,
     myReduce,
-    myReduceRight
+    myReduceRight,
+    myReverse
 }
