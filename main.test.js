@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift, mySlice: slice } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift, mySlice: slice, mySome: some, mySplice: splice } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -288,3 +288,32 @@ test('returns shallow copy of provided array from start to end (not including en
     expect(slice(arr1, 2, -2)).toStrictEqual([3]);
     expect(arr1).toStrictEqual([1, 2, 3, 4, 5]);
 });
+
+test('returns true if at least one element in the array returns true from the callback function, otherwise returns false', () =>
+{
+    let arr = [1, 3, 5, 69, 420, 69, 69, 1337, 13];
+    expect(some(arr, (val) => val < 0)).toBe(false);
+    expect(some(arr, (val) => val > 0)).toBe(true);
+    expect(some(arr, (val) => val > 1 && val < 3)).toBe(false);
+    expect(some(arr, (val) => val === 69 || val === 420)).toBe(true);
+    expect(some(arr, (val) => Array.isArray(val) || val > 1500)).toBe(false);
+});
+
+test('changes contents of arr by removing or replacing existing elements and/or adding new elements in place - returns deleted items', () =>
+{
+    let empty = [];
+    expect(splice(empty, 1, 1, 1, 2, 3)).toStrictEqual([]);
+    expect(empty).toStrictEqual([1, 2, 3]);
+    let arr1 = [1, 2, 3, 4, 5];
+    expect(splice(arr1, 5, 69, 6, 7)).toStrictEqual([]);
+    expect(arr1).toStrictEqual([1, 2, 3, 4, 5, 6, 7]);
+    let arr2 = [1, 2, 3];
+    expect(splice(arr2, 1, 0, 26, 19)).toStrictEqual([]);
+    expect(arr2).toStrictEqual([1, 26, 19, 2, 3]);
+    let arr3 = [1, 2, 3];
+    expect(splice(arr3, 1, 1, 26, 19)).toStrictEqual([2]);
+    expect(arr3).toStrictEqual([1, 26, 19, 3]);
+    let arr4 = [1, 2, 3, 4, 5];
+    expect(splice(arr4, -2, 1)).toStrictEqual([4]);
+    expect(arr4).toStrictEqual([1, 2, 3]);
+})

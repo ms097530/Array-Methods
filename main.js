@@ -375,6 +375,68 @@ const mySome = (arr, callback) =>
     return false;
 }
 
+function mySplice(arr, start, deleteCount = arr.length - start, ...items)
+{
+    function arrSwap(arr, i, j)
+    {
+        let temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    const { length } = arr;
+
+    let adjustedStart = start > length ? length : start < 0 ? length + start : start;
+
+    if (adjustedStart < 0) return [];
+    // if (adjustedStart === length)
+    // // when provided start is greater than arr.length, add provided items to arr
+    // {
+    //     for (let i = 0; i < items.length; ++i)
+    //     {
+    //         arr[adjustedStart + i] = items[i];
+    //     }
+    //     return [];
+    // }
+    adjustedDeleteCount = Math.min(deleteCount, length - adjustedStart);
+
+    let deleted = [];
+    for (let i = adjustedStart; i < adjustedStart + adjustedDeleteCount; ++i)
+    // adjustedStart + adjustedDeleteCount to make sure exact amount is deleted
+    {
+        myPush(deleted, arr[i]);
+        if (items.length > i - adjustedStart)
+        {
+            arr[i] = items[i - adjustedStart];
+        }
+        else
+        {
+            arrSwap(arr, i,)
+        }
+        console.log('FIRST PUSHING')
+    }
+
+    let insertStart = adjustedStart + adjustedDeleteCount;
+    let pushed = [];
+    for (let i = insertStart; i < insertStart + items.length - deleted.length; ++i)
+    {
+        if (i < length) myPush(pushed, arr[i]);
+        arr[i] = items[i - insertStart + adjustedDeleteCount];
+        console.log('MIDDLE PUSHING', items[i - insertStart + adjustedDeleteCount])
+    }
+
+    for (let i = 0; i < pushed.length; ++i)
+    {
+        myPush(arr, pushed[i]);
+        console.log('LAST PUSHING')
+    }
+
+    return deleted;
+}
+
+let arr = [1, 2, 3, 4, 5];
+console.log(mySplice(arr, -2, 1))
+console.log(arr);
+
 module.exports =
 {
     myPush,
@@ -402,5 +464,7 @@ module.exports =
     myReduceRight,
     myReverse,
     myShift,
-    mySlice
+    mySlice,
+    mySome,
+    mySplice
 }

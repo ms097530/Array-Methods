@@ -1,0 +1,15 @@
+
+
+for deleting, copy elements from just after delete count and overwrite them, after inserting all provided items
+
+Example:
+
+[1,2,3,4,5]
+
+delete 2,3
+
+so swap 2 and 4 and 3 and 5
+so array loooks like [1,4,5,2,3]
+then subtract 2 from length
+so result is [1,4,5]
+
