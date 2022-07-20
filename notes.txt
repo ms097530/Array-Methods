@@ -26,4 +26,24 @@ SHOULD delete 4
 SHOULD have [1,2,4,5] after
 SHOULD return [4] -> does return [4]
 
+adjustedStart = start > length ? -2 > 5 -> false
+-> start < 0 ? true -> length + start -> 5 + -2
+= 3
+adjustedDeleteCount = Math.min(1, 5 - 3) = 1
+deleted = []
+
+overwriteNum = 0;
+for (i = 3; i < items.length -> 0 && overWriteNum < 1; ++i)
+
+OVERWRITE LOOP SKIPPED
+INSERT LOOP SKIPPED
+
+deleteStart = adjustedStart + overwriteNum ->
+3 + 0 = 3
+needToDelete = adjustedDeleteCount - overwriteNum -> 1 - 0 = 1
+for (let i = deleteStart -> 3; i < deleteStart + needToDelete -> 3 + 1 -> 4; ++i)
+myPush(deleted, arr[3])
+deleted = [4]
+
+i = deleteStart + needToDelete + 1 -> 3 + 1 + 1 = 5
 
