@@ -377,15 +377,10 @@ const mySome = (arr, callback) =>
 
 function mySplice(arr, start, deleteCount = arr.length - start, ...items)
 {
-    // function arrSwap(arr, i, j)
-    // {
-    //     let temp = arr[i];
-    //     arr[i] = arr[j];
-    //     arr[j] = temp;
-    // }
     const { length } = arr;
 
     let adjustedStart = start > length ? length : start < 0 ? length + start : start;
+    // adjusts deleteCount so the used value never exceeds the remaining values in the array from the adjusted start position
     let adjustedDeleteCount = Math.min(deleteCount, length - adjustedStart);
     let deleted = [];
 
@@ -402,21 +397,18 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
 
     // NO MORE VALUES TO OVERWRITE - may still have values to delete or insert ** ONLY ONE OR THE OTHER
     // for inserting, this may require shifting the proceeding elements in the array
-    let shifted = [];
     let insertStart = adjustedStart + overwriteNum;
     let needToInsert = items.length - overwriteNum;
     let insertNum = overwriteNum;
+    // shift values first
+    for (let i = length - 1; i >= insertStart; --i)
+    {
+        arr[i + needToInsert] = arr[i];
+    }
+    // overwrite number of values equal to needToInsert
     for (let i = insertStart; i < insertStart + needToInsert; ++i)
     {
-        if (i < length)
-        {
-            myPush(shifted, arr[i]);
-        }
         arr[i] = items[insertNum++];
-    }
-    for (let toMove of shifted)
-    {
-        myPush(arr, toMove);
     }
 
     // for deleting, just reduce arr length
@@ -424,12 +416,10 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
     let needToDelete = adjustedDeleteCount - overwriteNum;
     for (let i = deleteStart; i < deleteStart + needToDelete; ++i)
     {
-        console.log('delete pushing')
         myPush(deleted, arr[i]);
     }
-    for (let i = deleteStart + needToDelete; i < length; ++i)
+    for (let i = deleteStart + needToDelete; i < length && needToDelete; ++i)
     {
-        console.log('delete shifting');
         arr[i - needToDelete] = arr[i];
     }
     arr.length -= needToDelete;
@@ -437,9 +427,7 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
     return deleted;
 }
 
-let arr = [1, 2, 3];
-console.log(mySplice(arr, 1, 1, 26, 19));
-console.log(arr);
+
 
 module.exports =
 {
@@ -470,5 +458,6 @@ module.exports =
     myShift,
     mySlice,
     mySome,
-    mySplice
+    mySplice,
+    myUnshift
 }

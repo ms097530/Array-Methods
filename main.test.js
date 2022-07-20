@@ -1,4 +1,4 @@
-const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift, mySlice: slice, mySome: some, mySplice: splice } = require('./main');
+const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift, mySlice: slice, mySome: some, mySplice: splice, myUnshift: unshift } = require('./main');
 // import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
@@ -316,4 +316,14 @@ test('changes contents of arr by removing or replacing existing elements and/or 
     let arr4 = [1, 2, 3, 4, 5];
     expect(splice(arr4, -2, 1)).toStrictEqual([4]);
     expect(arr4).toStrictEqual([1, 2, 3, 5]);
-})
+});
+
+test('adds one or more items to the beginning of array and returns new length of array', () =>
+{
+    let empty = [];
+    expect(unshift(empty, 1, 2, 3)).toBe(3);
+    expect(empty).toStrictEqual([1, 2, 3]);
+    let arr = [1, 2, 3, 4, 5];
+    expect(unshift(arr, 69, 9029)).toBe(7);
+    expect(arr).toStrictEqual([69, 9029, 1, 2, 3, 4, 5]);
+});
