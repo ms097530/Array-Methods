@@ -315,5 +315,5 @@ test('changes contents of arr by removing or replacing existing elements and/or 
     expect(arr3).toStrictEqual([1, 26, 19, 3]);
     let arr4 = [1, 2, 3, 4, 5];
     expect(splice(arr4, -2, 1)).toStrictEqual([4]);
-    expect(arr4).toStrictEqual([1, 2, 3]);
+    expect(arr4).toStrictEqual([1, 2, 3, 5]);
 })
