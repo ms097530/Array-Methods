@@ -427,6 +427,11 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
     return deleted;
 }
 
+function myUnshift(arr, ...items)
+{
+    mySplice(arr, 0, 0, ...items);
+    return arr.length;
+}
 
 
 module.exports =
