@@ -375,59 +375,124 @@ const mySome = (arr, callback) =>
     return false;
 }
 
+// function mySplice(arr, start, deleteCount = arr.length - start, ...items)
+// {
+//     const { length } = arr;
+
+//     let adjustedStart = start > length ? length : start < 0 ? length + start : start;
+//     // adjusts deleteCount so the used value never exceeds the remaining values in the array from the adjusted start position
+//     let adjustedDeleteCount = Math.min(deleteCount, length - adjustedStart);
+//     let deleted = [];
+
+//     if (adjustedStart < 0) return [];
+
+//     // this loop will be skipped if no items OR no values to delete
+//     // FOR OVERWRITING VALUES
+//     let overwriteNum = 0;
+//     for (let i = adjustedStart; i < /*items.*/length && overwriteNum < items.length/*adjustedDeleteCount*/; ++i)
+//     {
+//         console.log('overwriting');
+//         myPush(deleted, arr[i]);
+//         arr[i] = items[overwriteNum++];
+//     }
+
+//     // NO MORE VALUES TO OVERWRITE - may still have values to delete or insert ** ONLY ONE OR THE OTHER
+//     // for inserting, this may require shifting the proceeding elements in the array
+//     let insertStart = adjustedStart + overwriteNum;
+//     let needToInsert = items.length - overwriteNum;
+//     let insertNum = overwriteNum;
+//     // shift values first
+//     for (let i = length - 1; i >= insertStart; --i)
+//     {
+//         console.log('insert shifting')
+//         arr[i + needToInsert] = arr[i];
+//     }
+//     // overwrite number of values equal to needToInsert
+//     for (let i = insertStart; i < insertStart + needToInsert; ++i)
+//     {
+//         console.log('insert overwriting');
+//         arr[i] = items[insertNum++];
+//     }
+
+//     // for deleting, just reduce arr length
+//     let deleteStart = adjustedStart + overwriteNum;
+//     let needToDelete = adjustedDeleteCount - overwriteNum;
+//     for (let i = deleteStart; i < deleteStart + needToDelete; ++i)
+//     {
+//         console.log('delete pushing')
+//         myPush(deleted, arr[i]);
+//     }
+//     for (let i = deleteStart + needToDelete; i < length && needToDelete; ++i)
+//     {
+//         console.log('delete overwriting');
+//         arr[i - needToDelete] = arr[i];
+//     }
+//     arr.length -= needToDelete;
+
+//     return deleted;
+// }
+
 function mySplice(arr, start, deleteCount = arr.length - start, ...items)
 {
     const { length } = arr;
 
     let adjustedStart = start > length ? length : start < 0 ? length + start : start;
+
     // adjusts deleteCount so the used value never exceeds the remaining values in the array from the adjusted start position
+    // it is at most the remaining number of elements starting at adjustedStart
     let adjustedDeleteCount = Math.min(deleteCount, length - adjustedStart);
+    // can only overwrite values currently in arr, so value can not exceed  number of values beyond start position
+    // if items.length is greater than adjustedDeleteCount insertions will need to be done
+    // if items.length is less than adjustedDeleteCount deletions will need to be done
+    let numToOverwrite = Math.min(length - adjustedStart, items.length, adjustedDeleteCount);
+    // insert if items leftover after overwriting
+    let numToInsert = items.length - numToOverwrite;
+    // delete if adjustedDeleteCount greater than number that were overwritten
+    let numToDelete = adjustedDeleteCount - numToOverwrite;
+    // console.log('to overwrite: ', numToOverwrite);
+    // console.log('to insert: ', numToInsert);
+    // console.log('to delete: ', numToDelete);
     let deleted = [];
 
-    if (adjustedStart < 0) return [];
+    if (adjustedStart < 0 || deleteCount < 0) return [];
 
-    // this loop will be skipped if no items OR no values to delete
-    // FOR OVERWRITING VALUES
-    let overwriteNum = 0;
-    for (let i = adjustedStart; i < /*items.*/length && overwriteNum < items.length/*adjustedDeleteCount*/; ++i)
+    // overwriting
+    let numOverwritten = 0;
+    for (let i = adjustedStart; numOverwritten < numToOverwrite; ++i, ++numOverwritten)
     {
-        console.log('overwriting');
-        myPush(deleted, arr[i]);
-        arr[i] = items[overwriteNum++];
+        deleted.push(arr[i]);
+        arr[i] = items[numOverwritten];
     }
 
-    // NO MORE VALUES TO OVERWRITE - may still have values to delete or insert ** ONLY ONE OR THE OTHER
-    // for inserting, this may require shifting the proceeding elements in the array
-    let insertStart = adjustedStart + overwriteNum;
-    let needToInsert = items.length - overwriteNum;
-    let insertNum = overwriteNum;
-    // shift values first
-    for (let i = length - 1; i >= insertStart; --i)
+    // inserting
+    // let numInserted = numOverwritten;
+    let numInserted = 0;
+    let insertStart = adjustedStart + numOverwritten;
+    for (let i = length - 1 + numToInsert; i >= adjustedStart + numOverwritten; --i)
     {
-        console.log('insert shifting')
-        arr[i + needToInsert] = arr[i];
+        // console.log('insert shifting')
+        // console.log(arr[i], ' becomes ', arr[i - numToInsert]);
+        arr[i] = arr[i - numToInsert];
     }
-    // overwrite number of values equal to needToInsert
-    for (let i = insertStart; i < insertStart + needToInsert; ++i)
+    for (let i = insertStart; numInserted < numToInsert; ++i, ++numInserted)
     {
-        console.log('insert overwriting');
-        arr[i] = items[insertNum++];
+        // console.log(numInserted);
+        arr[i] = items[numInserted + numOverwritten];
     }
 
-    // for deleting, just reduce arr length
-    let deleteStart = adjustedStart + overwriteNum;
-    let needToDelete = adjustedDeleteCount - overwriteNum;
-    for (let i = deleteStart; i < deleteStart + needToDelete; ++i)
+    // deleting
+    // let numDeleted = numOverwritten;
+    let numDeleted = 0;
+    let deleteStart = adjustedStart + numOverwritten;
+    for (let i = deleteStart; numDeleted < numToDelete; ++i, ++numDeleted)
     {
-        console.log('delete pushing')
-        myPush(deleted, arr[i]);
+        deleted.push(arr[i]);
     }
-    for (let i = deleteStart + needToDelete; i < length && needToDelete; ++i)
+    for (let i = deleteStart + numToDelete; i < length; ++i)
     {
-        console.log('delete overwriting');
-        arr[i - needToDelete] = arr[i];
+        arr[i - numToDelete] = arr[i];
     }
-    arr.length -= needToDelete;
+    arr.length -= numToDelete;
 
     return deleted;
 }

@@ -325,7 +325,7 @@ test('changes contents of arr by removing or replacing existing elements and/or 
     expect(splice(arr5, arr5.length, 0, 4, 5)).toStrictEqual([]);
     expect(arr5).toStrictEqual([1, 2, 3, 4, 5]);
     let arr6 = [1, 2, 3];
-    // expect(splice(arr6, 1, 33, 4, 5)).toStrictEqual([2, 3]);
+    expect(splice(arr6, 1, 33, 4, 5)).toStrictEqual([2, 3]);
     expect(arr6).toStrictEqual([1, 4, 5]);
 });
 
