@@ -1,5 +1,4 @@
 const { myPush: push, myPop: pop, myMap: map, myFilter: filter, myFill: fill, myConcat: concat, myCopyWithin: copyWithin, myEntries: entries, myEvery: every, myFind: find, myFindIndex: findIndex, myFindLast: findLast, myFindLastIndex: findLastIndex, myFlat: flat, myFlatMap: flatMap, myForEach: forEach, myIncludes: includes, myIndexOf: indexOf, myJoin: join, myKeys: keys, myLastIndexOf: lastIndexOf, myReduce: reduce, myReduceRight: reduceRight, myReverse: reverse, myShift: shift, mySlice: slice, mySome: some, mySplice: splice, myUnshift: unshift } = require('./main');
-// import { myPush as push, myPop as pop, myMap as map, myFilter as filter } from './main'
 
 test('inserts value to end of array', () =>
 {
@@ -321,9 +320,13 @@ test('changes contents of arr by removing or replacing existing elements and/or 
     let arr4 = [1, 2, 3, 4, 5];
     expect(splice(arr4, -2, 1)).toStrictEqual([4]);
     expect(arr4).toStrictEqual([1, 2, 3, 5]);
+    // insert values at end of array
     let arr5 = [1, 2, 3];
     expect(splice(arr5, arr5.length, 0, 4, 5)).toStrictEqual([]);
     expect(arr5).toStrictEqual([1, 2, 3, 4, 5]);
+    let arr6 = [1, 2, 3];
+    // expect(splice(arr6, 1, 33, 4, 5)).toStrictEqual([2, 3]);
+    expect(arr6).toStrictEqual([1, 4, 5]);
 });
 
 test('adds one or more items to the beginning of array and returns new length of array', () =>

@@ -389,8 +389,9 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
     // this loop will be skipped if no items OR no values to delete
     // FOR OVERWRITING VALUES
     let overwriteNum = 0;
-    for (let i = adjustedStart; i < items.length && overwriteNum < adjustedDeleteCount; ++i)
+    for (let i = adjustedStart; i < /*items.*/length && overwriteNum < items.length/*adjustedDeleteCount*/; ++i)
     {
+        console.log('overwriting');
         myPush(deleted, arr[i]);
         arr[i] = items[overwriteNum++];
     }
@@ -403,11 +404,13 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
     // shift values first
     for (let i = length - 1; i >= insertStart; --i)
     {
+        console.log('insert shifting')
         arr[i + needToInsert] = arr[i];
     }
     // overwrite number of values equal to needToInsert
     for (let i = insertStart; i < insertStart + needToInsert; ++i)
     {
+        console.log('insert overwriting');
         arr[i] = items[insertNum++];
     }
 
@@ -416,10 +419,12 @@ function mySplice(arr, start, deleteCount = arr.length - start, ...items)
     let needToDelete = adjustedDeleteCount - overwriteNum;
     for (let i = deleteStart; i < deleteStart + needToDelete; ++i)
     {
+        console.log('delete pushing')
         myPush(deleted, arr[i]);
     }
     for (let i = deleteStart + needToDelete; i < length && needToDelete; ++i)
     {
+        console.log('delete overwriting');
         arr[i - needToDelete] = arr[i];
     }
     arr.length -= needToDelete;
@@ -432,6 +437,11 @@ function myUnshift(arr, ...items)
     mySplice(arr, 0, 0, ...items);
     return arr.length;
 }
+
+
+let arr = [1, 2, 3];
+console.log(mySplice(arr, 1, 33, 4, 5));
+console.dir(arr);
 
 
 module.exports =
